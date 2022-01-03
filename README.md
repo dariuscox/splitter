@@ -1,2 +1,2 @@
 # splitter
-Split those builds (in multiple interfaces and languages)
+Split those bills (in multiple interfaces and languages)
