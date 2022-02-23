@@ -20,6 +20,21 @@ def is_number(string):
     except ValueError:
         return False
 
+def validate_input(prompt):
+    #This function will take in a question prompt for an input and check to make sure it is a valid number.
+    #If it is not a number, it will ask the user to enter a valid number and re-prompt.
+    validated = False
+    while not validated:
+        try:
+            item = float(input(prompt))
+        except ValueError:
+            print("Please enter a number using digits 0-9")
+            continue
+        
+        validated = True
+    
+    return item
+
 def get_extra_fee_percentage_ez(subtotal, final_cost):
     fees_paid = final_cost - subtotal
     percent_paid = fees_paid / float(subtotal)
@@ -35,8 +50,10 @@ def itemize_participant(percent_added):
         if is_number(item):
             items.append(item)
             print(items)
+        elif item == "":
+            completed = True
         else:
-             completed = True
+            print("Please enter the item cost as a number using digits 0-9")
     print("Participant has items:", items)
     for item in items:
         participant_total += float(item)
@@ -54,9 +71,9 @@ def __main__():
     # tip = get_tip_amount(tip, subtotal)
     # tax = percentage_helper(tax, subtotal)
 
-    participants = input("How many participants are there? --> ")
-    subtotal = input("SUBTOTAL: What is the pre-tax and pre-tip subtotal? --> ")
-    final_cost = input("FINAL COST: What is the amount paid after all fees, taxes, and tip? --> ")
+    participants = validate_input("How many participants are there? --> ")
+    subtotal = validate_input("SUBTOTAL: What is the pre-tax and pre-tip subtotal? --> ")
+    final_cost = validate_input("FINAL COST: What is the amount paid after all fees, taxes, and tip? --> ")
 
     extra_fee_percentage = get_extra_fee_percentage_ez(float(subtotal), float(final_cost))
 
@@ -66,8 +83,8 @@ def __main__():
     print("{}%".format(extra_fee_percentage*100) )
 
     splits = []
-
-    for i in range(int(participants)):
+    
+    for i in range(1, int(participants)+1):
         print("participant #", i)
         splits.append(itemize_participant(extra_fee_percentage))
     
