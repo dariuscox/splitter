@@ -72,5 +72,7 @@ def __main__():
         splits.append(itemize_participant(extra_fee_percentage))
     
     print(splits)
+	
+if __name__ == "__main__":
+    __main__()
 
-__main__()
